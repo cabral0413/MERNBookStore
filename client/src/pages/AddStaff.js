@@ -1,28 +1,19 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import {
-  Button,
-  FormControlLabel,
-  FormLabel,
-  TextField,
-} from "@mui/material";
+import { Button, FormLabel, TextField } from "@mui/material";
 import { Box } from "@mui/system";
 import axios from "axios";
 import "./HomePage.css";
 
 const AddStaff = () => {
-    const history = useNavigate();
-    const [existingStaffIds, setExistingStaffIds] = useState([]);
-  
-    // State to store the form inputs
-    const [inputs, setInputs] = useState({
-      name: "",
-      birthday: "",
-      Id: "",
-      nic: "",
-    });
+  const history = useNavigate();
+  const [inputs, setInputs] = useState({
+    name: "",
+    birthday: "",
+    Id: "",
+    nic: "",
+  });
 
-     // Event handler for input changes
   const handleChange = (e) => {
     setInputs((prevState) => ({
       ...prevState,
@@ -30,12 +21,11 @@ const AddStaff = () => {
     }));
   };
 
-  // Function to send the form data to the server
   const sendRequest = async () => {
     try {
       const response = await axios.post("http://localhost:1000/api/staffmem", {
         name: String(inputs.name),
-        birthday: Date(inputs.birthday),
+        birthday: inputs.birthday, // Ensure the date format is correct
         Id: Number(inputs.Id),
         nic: String(inputs.nic),
       });
@@ -50,47 +40,42 @@ const AddStaff = () => {
     }
   };
 
-   // Event handler for form submission
-const handleSubmit = (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
 
-    
- // Check if any field is empty
-const isAnyFieldEmpty = Object.values(inputs).some(value => value === "");
+    const isAnyFieldEmpty = Object.values(inputs).some(value => value === "");
+    if (isAnyFieldEmpty) {
+      window.alert("Please fill in all the fields");
+      return;
+    }
 
-if (isAnyFieldEmpty) {
-  window.alert("Please fill in all the fields ");
-  return;
-}
+    if (!/^\d{3}$/.test(inputs.Id)) {
+      window.alert("ID should consist of three integers.");
+      return;
+    }
 
- // Validate ID format
-  if (!/^\d{3}$/.test(inputs.Id)) {
-  window.alert("ID should consist of three integers.");
-  return;
- }
+    if (
+      inputs.nic.length !== 12 &&
+      !(inputs.nic.length === 10 && /^[\d]{9}[vV]$/.test(inputs.nic))
+    ) {
+      window.alert("Please enter a valid NIC");
+      return;
+    }
 
-  // Validate NIC length
-  if (
-  inputs.nic.length !== 12 &&
-  !(inputs.nic.length === 10 && /^[\d]{9}[vV]$/.test(inputs.nic))
-  ) {
-  window.alert("Please enter a valid NIC");
-  return;
-  }
+    sendRequest()
+      .then(() => {
+        window.alert("Member added/updated successfully!");
+        history("/staff");
+      })
+      .catch((error) => {
+        console.log(error);
+        window.alert("Failed to add/update the member. Please try again.");
+      });
+  };
 
-  sendRequest()
-  .then(() => {
-    window.alert("Member added/updated successfully!");
-    history("/staff"); // Navigate to the "/staff" route after successful submission
-  })
-  .catch((error) => {
-    console.log(error); // Log the error message to the console
-    window.alert("Failed to add/update the member. Please try again.");
-  });
-};
-return (
+  return (
     <div className="AddBookPage">
-      <div className="containeradd ">
+      <div className="containeradd">
         <form onSubmit={handleSubmit}>
           <Box
             display="flex"
@@ -104,10 +89,7 @@ return (
             marginRight="auto"
             marginTop={10}
           >
-            {/* Form fields for staff information */}
-            <FormLabel sx={{ color: "#000000", fontSize: "120%" }}>
-              Name
-            </FormLabel>
+            <FormLabel sx={{ color: "#000000", fontSize: "120%" }}>Name</FormLabel>
             <TextField
               value={inputs.name}
               onChange={handleChange}
@@ -117,9 +99,7 @@ return (
               variant="outlined"
               name="name"
             />
-            <FormLabel sx={{ color: "#000000", fontSize: "120%" }}>
-              Birthday
-            </FormLabel>
+            <FormLabel sx={{ color: "#000000", fontSize: "120%" }}>Birthday</FormLabel>
             <TextField
               value={inputs.birthday}
               onChange={handleChange}
@@ -149,7 +129,6 @@ return (
               variant="outlined"
               name="nic"
             />
-           
             <Button className="scale-button" variant="contained" type="submit">
               Add Staff
             </Button>
@@ -159,5 +138,5 @@ return (
     </div>
   );
 };
-export default AddStaff;
 
+export default AddStaff;
