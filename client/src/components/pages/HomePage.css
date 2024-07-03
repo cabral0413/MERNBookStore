@@ -1,0 +1,321 @@
+/* HomePage.css */
+
+.homepage{
+    width: 100vw;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+      
+  
+    }
+    body {
+      width: 100%;
+      height: 100%;
+      margin: 0;
+      padding: 0;
+      overflow-x: hidden;
+    }
+  
+    .top-image {
+      width: 100%;
+      height: 500px; /* Adjust the height according to your image size */
+      background-image: url("../Images/bg.jpg"); /* Replace with the path to your top image */
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: cover;
+    }
+    
+    .content {
+      display: flex;
+      flex-direction: row;
+      width: 80%;
+      margin-bottom: 80px;
+    }
+  
+    .intro-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 100px;
+    margin-bottom: 50px;
+    margin-left: 10%;
+  }
+  
+  .intro-text {
+    text-align: center;
+    max-width: 800px;
+  }
+  
+  .intro-text h2 {
+      font-size: 42px;
+      font-weight: bold;
+      margin-bottom: 10%;
+      color: #333;
+      text-align: center;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    
+  }
+  
+  .intro-text p {
+    font-size: 22px;
+    color: #682a2a;
+    margin-bottom: 40px;
+  }
+    
+    .right-section {
+      flex: 1;
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+  
+  
+    }
+    
+    .button-container {
+      padding: 20px;
+    }
+    
+  
+   /* Shaking button animation */
+  @keyframes shake {
+    0% { transform: translateX(0); }
+    20% { transform: translateX(-10px) rotate(5deg); }
+    40% { transform: translateX(10px) rotate(-5deg); }
+    60% { transform: translateX(-10px) rotate(5deg); }
+    80% { transform: translateX(10px) rotate(-5deg); }
+    100% { transform: translateX(0); }
+  }
+  
+  /* Stylish button with shaking animation */
+  .shaking-button {
+    display: inline-block;
+    padding: 12px 24px;
+    font-size: 35px;
+    font-weight: bold;
+    text-align: center;
+    text-decoration: none;
+    background-color: #4da015;
+    color: #fff;
+    border-radius: 10px;
+    cursor: pointer;
+    animation: shake 2.15s infinite;
+    margin-left: 10%;
+  
+  }
+  
+  .shaking-button:hover {
+    animation-play-state: paused;
+  }
+    
+    footer {
+      position: relative;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 10%;
+      background-color: black;
+      color: white;
+      padding: 20px;
+      font-size: 120%;
+      text-align: center;
+    }
+    
+    /*addbook*/
+    .AddBookPage{
+      background-image: url("../Images/bg6.jpeg");
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: cover;
+      height: 100vh; /* Adjust the height as needed */
+      margin: 0;
+      padding: 0;
+      overflow: hidden; /* Add this line */
+    }
+    .containeradd {
+      background-color: rgba(255, 255, 255, 0.9);
+      padding: 20px;
+      margin: 0 auto;
+      max-width: 40%;
+      height: 90%;
+      margin-top: 2%;
+    }
+    /* Scale animation */
+  @keyframes scale {
+    0% {
+      transform: scale(1);
+    }
+    50% {
+      transform: scale(1.1);
+    }
+    100% {
+      transform: scale(1);
+    }
+  }
+  
+  /* Stylish button with scale animation */
+  .scale-button {
+    display: inline-block;
+    padding: 12px 24px;
+    font-weight: bold;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+    animation: scale 2s infinite;
+    position: absolute;
+    top : 100px ;
+    
+  }
+  
+  .scale-button:hover {
+    animation-play-state: paused;
+  }
+  
+  .scale-button2 {
+    display: inline-block;
+    padding: 12px 24px;
+    font-weight: bold;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+    animation: scale 2s infinite;
+    position: absolute;
+    
+  }
+  
+  .scale-button2:hover {
+    animation-play-state: paused;
+  }
+  
+  /* Login.css */
+  
+  .login-background {
+    background-image: url("../Images/i7.jpg");
+    background-size: cover;
+    background-position: center;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .containerlogin {
+    background-color: rgba(224, 214, 214, 0.5);
+    padding: 20px;
+    border-radius: 10px;
+    justify-content: flex-end; 
+    position: absolute;
+    right: 0; /* Align the container to the right side of the screen */
+    margin-right: 5%;
+    height: 60%; /* Adjust the height as needed */
+    width: 30%; /* Adjust the width as needed */
+  
+  }
+  
+  @media only screen and (max-width: 600px) {
+    .containerlogin {
+      width: 80%;
+      margin-right: 10%;
+    }}
+    
+  
+    .logo-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-bottom: 20px;
+      overflow: hidden;
+    }
+    
+    .logo {
+      width: 150px;
+      animation: shrinkExpand 3s infinite alternate;
+    }
+    
+    @keyframes shrinkExpand {
+      0% {
+        transform: scale(1);
+      }
+      50% {
+        transform: scale(0.8);
+      }
+      100% {
+        transform: scale(1);
+      }
+    }
+  
+  .brand-name {
+    font-size: 40px;
+    margin-top: 10px;
+    color: #0a1624;
+    font-family: 'Arial', sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+  }
+  
+  .login-inputs {
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+    align-items: center;
+    margin-top: 15%;
+    gap: 25px;
+  }
+  
+  .input-field {
+    width: 40%;
+    height: 40%;
+    padding: 10px;
+    margin-bottom:1%;
+    border: 1px solid #ccc;
+    border-radius: 20px;
+    font-size: larger;
+  
+  
+  }
+  
+  .login-button {
+    width: 40%;
+    height: 40px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 20px;
+    font-size: medium;
+  }
+  .login-button {
+    width: 40%;
+    height: 40px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 20px;
+    font-size: medium;
+    animation: colorChange 2s infinite;
+  }
+  
+  @keyframes colorChange {
+    0% {
+      background-color: #007bff;
+    }
+    50% {
+      background-color: #ad00b3;
+    }
+    100% {
+      background-color: #c71432;
+    }
+  }
+  
+  .error-message {
+    color: rgb(138, 20, 20);
+    margin-top: 10px;
+    text-align: center;
+  }
+  
+  
+  
+    
