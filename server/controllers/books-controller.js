@@ -1,117 +1,104 @@
-// staff-controllers.js
+const Book = require("../model/Book");
 
-const Staff = require('../model/Staff');
-const { body, validationResult } = require('express-validator');
+// Get all books
+const getAllBooks = async (req, res, next) => {
+  let books;
+  try {
+    books = await Book.find();
+  } catch (err) {
+    console.log(err);
+  }
 
-
-const addStaff = async (req, res, next) => {
-    const { name, birthday, Id, nic } = req.body;
-  
-    // Check if a staff member with the same ID already exists
-    const existingStaff = await Staff.findOne({ Id: Id });
-    if (existingStaff) {
-      return res.status(400).json({ message: "Staff member with the same ID already exists" });
-    }
-  
-    let staff;
-    try {
-      staff = new Staff({
-        name,
-        birthday,
-        Id,
-        nic,
-      });
-      await staff.save();
-    } catch (err) {
-      console.log(err);
-      return res.status(500).json({ message: "Unable to add staff member" });
-    }
-  
-    if (!staff) {
-      return res.status(500).json({ message: "Unable to add staff member" });
-    }
-  
-    return res.status(201).json({ staff });
+  if (!books) {
+    return res.status(404).json({ message: "No products found" });
+  }
+  return res.status(200).json({ books });
 };
-  
-
-//-------------------
-// Get all staff members
-const getStaffMembers = async (req, res, next) => {
-    let staffmem;
-    try {
-      staffmem = await Staff.find();
-    } catch (err) {
-      console.log(err);
-    }
-  
-    if (!staffmem) {
-      return res.status(404).json({ message: "No Staff member found" });
-    }
-    return res.status(200).json({ staffmem });
-};
-
-
-
-// Get a staff member by ID
+// Get a book by ID
 const getById = async (req, res, next) => {
     const id = req.params.id;
-    let staff;
+    let book;
     try {
-      staff = await Staff.findById(id);
+      book = await Book.findById(id);
     } catch (err) {
       console.log(err);
     }
-    if (!staff) {
-      return res.status(404).json({ message: "No Staff Member found" });
+    if (!book) {
+      return res.status(404).json({ message: "No Book found" });
     }
-    return res.status(200).json({ staff });
+    return res.status(200).json({ book });
 };
 
-// Update a staff member
-const updateStaff = async (req, res, next) => {
-    const id = req.params.id;
-    const { name, birthday,Id,nic } = req.body;
-    let staff;
+
+// Add a new book
+const addBook = async (req, res, next) => {
+    const { name, author, description, price, available, image, quantity } = req.body;
+    let book;
     try {
-      staff = await Staff.findByIdAndUpdate(id, {
+      book = new Book({
         name,
-        birthday,
-         Id,
-          nic,
+        author,
+        description,
+        price,
+        available,
+        image,
+        quantity,
       });
-      staff = await staff.save();
+      await book.save();
     } catch (err) {
       console.log(err);
     }
-    if (!staff) {
+  
+    if (!book) {
+      return res.status(500).json({ message: "Unable To Add" });
+    }
+    return res.status(201).json({ book });
+};
+  
+
+// Update a book by ID
+const updateBook = async (req, res, next) => {
+    const id = req.params.id;
+    const { name, author, description, price, available, image, quantity } = req.body;
+    let book;
+    try {
+      book = await Book.findByIdAndUpdate(id, {
+        name,
+        author,
+        description,
+        price,
+        available,
+        image,
+        quantity,
+      });
+      book = await book.save();
+    } catch (err) {
+      console.log(err);
+    }
+    if (!book) {
       return res.status(404).json({ message: "Unable To Update By this ID" });
     }
-    return res.status(200).json({ staff });
+    return res.status(200).json({ book });
 };
 
 
-// Delete a staff member
-const deleteStaff = async (req, res, next) => {
+// Delete a book by ID
+const deleteBook = async (req, res, next) => {
     const id = req.params.id;
-    let staff;
+    let book;
     try {
-      staff = await Staff.findByIdAndRemove(id);
+      book = await Book.findByIdAndRemove(id);
     } catch (err) {
       console.log(err);
     }
-    if (!staff) {
+    if (!book) {
       return res.status(404).json({ message: "Unable To Delete By this ID" });
     }
-    return res.status(200).json({ message: "Member Successfully Deleted" });
+    return res.status(200).json({ message: "Product Successfully Deleted" });
 };
 
-
-exports.getStaffMembers = getStaffMembers;
-exports.addStaff = addStaff ;
-exports.getById = getById ;
-exports.updateStaff = updateStaff;
-exports.deleteStaff = deleteStaff ;
-  
-  
-  
+exports.getAllBooks = getAllBooks;
+exports.addBook = addBook;
+exports.getById = getById;
+exports.updateBook = updateBook;
+exports.deleteBook = deleteBook;
